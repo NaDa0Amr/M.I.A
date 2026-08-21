@@ -1,0 +1,8 @@
+# Pinned to the environment that produced the checkpoints in outputs/.
+torch>=2.6.0
+torchvision>=0.21.0
+numpy>=1.26
+matplotlib>=3.8
+pandas>=2.0
+Pillow>=10.0
+scipy>=1.11

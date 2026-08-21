@@ -1,0 +1,5 @@
+Model,Clean Acc (%),FGSM Robust Acc (%),PGD Robust Acc (%),FGSM + Defend Acc (%)
+ResNet-34 Baseline,98.29,63.66,3.88,89.44
+ResNet-34 Hardened,97.98,77.48,16.61,93.63
+MobileNetV2 Baseline,95.81,43.79,0.0,85.25
+MobileNetV2 Hardened,90.84,52.95,0.62,80.59
