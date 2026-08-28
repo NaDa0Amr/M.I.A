@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  caption-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    container_name: image_captioning_app_gpu
+    ports:
+      - "8501:8501"
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - ./checkpoints:/app/checkpoints
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

@@ -1,11 +1,6 @@
 # Adversarial ML Security Investigation
 
-**Classification:** Technical — AI Model Security Assessment
-**Date:** August 2026
-**Framework:** PyTorch · TorchVision
-**Code:** all five phases in this repository; see [`README.md`](README.md)
 
----
 
 ## Table of Contents
 

@@ -1,0 +1,12 @@
+model:
+  checkpoint_dir: "checkpoints"
+  device: "cuda"
+
+inference:
+  strategy: "beam"
+  beam_size: 3
+  max_length: 20
+  temperature: 1.0
+
+hub:
+  repo_id: "username/flickr8k-image-captioning"

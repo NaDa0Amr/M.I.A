@@ -1,0 +1,30 @@
+data:
+  images_dir: "data/raw/Images"
+  captions_file: "data/raw/captions.txt"
+  features_dir: "data/processed"
+  vocab_path: "data/processed/vocab.json"
+  splits_path: "data/processed/splits.json"
+  min_word_freq: 3
+  max_caption_len: 35
+
+model:
+  encoder: "resnet50"
+  embed_dim: 256
+  hidden_dim: 512
+  num_layers: 1
+  dropout: 0.5
+
+training:
+  batch_size: 64
+  num_epochs: 30
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  patience: 5
+  teacher_forcing: 1.0
+  grad_clip: 5.0
+  device: "cuda"
+  num_workers: 2
+
+checkpoint:
+  save_dir: "checkpoints"
+  save_best: true

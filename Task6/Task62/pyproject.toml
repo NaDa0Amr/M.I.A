@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-captioning"
+version = "1.0.0"
+description = "Image Caption Generation using CNN-LSTM with Attention"
+requires-python = ">=3.9"
+readme = "README.md"
+dependencies = [
+    "torch>=2.1.0",
+    "torchvision>=0.16.0",
+    "safetensors>=0.4.1",
+    "huggingface-hub>=0.20.0",
+    "Pillow>=10.1.0",
+    "numpy>=1.24.3",
+    "nltk>=3.8.1",
+    "rouge-score>=0.1.2",
+    "streamlit>=1.30.0",
+    "pyyaml>=6.0.1",
+    "tqdm>=4.66.0",
+    "matplotlib>=3.7.0",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
