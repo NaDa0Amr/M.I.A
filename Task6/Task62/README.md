@@ -1,3 +1,13 @@
+---
+title: Neural Image Captioning
+emoji: 🖼️
+colorFrom: indigo
+colorTo: blue
+sdk: gradio
+sdk_version: 4.19.0
+app_file: app/gradio_app.py
+pinned: false
+---
 # 🖼️ Neural Image Caption Generation
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -33,9 +43,8 @@ We use the **Flickr8k** dataset:
 ```text
 .
 ├── app/
-│   └── app.py
-├── api/
-│   └── main.py
+│   ├── app.py           (Streamlit App)
+│   └── gradio_app.py    (Gradio App)
 ├── checkpoints/
 ├── scripts/
 │   ├── extract_features.py
@@ -51,6 +60,7 @@ We use the **Flickr8k** dataset:
 │   ├── integration/
 │   └── unit/
 ├── Dockerfile
+├── Dockerfile.gpu
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
@@ -93,58 +103,31 @@ Features include early stopping, LR scheduling, gradient clipping, and automated
 
 *Qualitative examples showing generated captions will be displayed here.*
 
-## Streamlit App
+## Web Interfaces
 
-Start the web interface to upload and test your own images:
+You have two options for the web interface: **Streamlit** or **Gradio**.
+
+### Option A: Streamlit App
+Start the Streamlit interface to upload and test your own images:
 ```bash
 streamlit run app/app.py
 # or
 make app
 ```
+Available at: `http://localhost:8501`
 
-## FastAPI REST API
-
-A REST API for programmatic access to the captioning model:
+### Option B: Gradio App
+Start the Gradio interface:
 ```bash
-# Start the API server
-uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+python app/gradio_app.py
 # or
-make api
+make gradio
 ```
-
-### API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET`  | `/`      | Redirect to Swagger docs |
-| `GET`  | `/health`| Health check |
-| `POST` | `/predict`| Upload image → get caption |
-
-### Example Usage
-```bash
-# Generate a caption via curl
-curl -X POST "http://localhost:8000/predict" \
-  -F "file=@path/to/image.jpg" \
-  -F "strategy=beam" \
-  -F "beam_size=3"
-```
-
-**Response:**
-```json
-{
-  "caption": "a dog running through the grass",
-  "tokens": ["a", "dog", "running", "through", "the", "grass"],
-  "score": -0.4523,
-  "strategy": "beam",
-  "beam_size": 3
-}
-```
-
-Interactive API docs available at: `http://localhost:8000/docs`
+Available at: `http://localhost:7860`
 
 ## Docker
 
-Run both Streamlit UI and FastAPI API inside Docker containers:
+Run both the Streamlit UI and Gradio UI inside Docker containers:
 ```bash
 # Build the image
 docker build -t image-captioning .
@@ -154,7 +137,7 @@ docker-compose up
 
 # Services:
 #   Streamlit UI  → http://localhost:8501
-#   FastAPI API   → http://localhost:8000
+#   Gradio UI     → http://localhost:7860
 ```
 
 ## Model on HuggingFace
@@ -169,8 +152,7 @@ pytest tests/ -v --cov=src
 ## Technologies
 - Python 3.10+
 - PyTorch & torchvision (ResNet-50)
-- FastAPI + Uvicorn (REST API)
-- Streamlit (Web UI)
+- Streamlit & Gradio (Web UIs)
 - Docker & Docker Compose
 - NLTK, rouge-score
 - HuggingFace Hub

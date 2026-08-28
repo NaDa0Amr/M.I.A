@@ -1,4 +1,4 @@
-.PHONY: help setup setup-dev prepare-data extract-features train evaluate test lint format app api docker-build docker-run clean
+.PHONY: help setup setup-dev prepare-data extract-features train evaluate test lint format app gradio docker-build docker-run clean
 
 help:
 	@echo "Available commands:"
@@ -12,7 +12,7 @@ help:
 	@echo "  lint             - Check formatting and linting"
 	@echo "  format           - Format code with black and isort"
 	@echo "  app              - Launch Streamlit web application"
-	@echo "  api              - Launch FastAPI REST API server"
+	@echo "  gradio           - Launch Gradio web application"
 	@echo "  docker-build     - Build Docker image"
 	@echo "  docker-run       - Run all services via docker-compose"
 	@echo "  clean            - Remove cached files, coverage reports, and bytecode"
@@ -39,16 +39,16 @@ test:
 	pytest tests/ -v --cov=src --cov-report=term-missing
 
 lint:
-	black --check src/ tests/ app/ api/ scripts/ && isort --check-only src/ tests/ app/ api/ scripts/ && flake8 src/ tests/ app/ api/ scripts/
+	black --check src/ tests/ app/ scripts/ && isort --check-only src/ tests/ app/ scripts/ && flake8 src/ tests/ app/ scripts/
 
 format:
-	black src/ tests/ app/ api/ scripts/ && isort src/ tests/ app/ api/ scripts/
+	black src/ tests/ app/ scripts/ && isort src/ tests/ app/ scripts/
 
 app:
 	streamlit run app/app.py
 
-api:
-	uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+gradio:
+	python app/gradio_app.py
 
 docker-build:
 	docker build -t image-captioning .

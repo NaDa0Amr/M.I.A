@@ -1,22 +1,32 @@
 version: '3.8'
 
 services:
-  caption-app:
+  # Streamlit App
+  caption-streamlit:
     build:
       context: .
-      dockerfile: Dockerfile.gpu
-    container_name: image_captioning_app_gpu
+      dockerfile: Dockerfile
+    container_name: image_captioning_streamlit
     ports:
       - "8501:8501"
     environment:
       - HF_TOKEN=${HF_TOKEN:-}
     volumes:
       - ./checkpoints:/app/checkpoints
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    restart: unless-stopped
+
+  # Gradio App
+  caption-gradio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: image_captioning_gradio
+    ports:
+      - "7860:7860"
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+      - GRADIO_SERVER_NAME=0.0.0.0
+    volumes:
+      - ./checkpoints:/app/checkpoints
+    entrypoint: ["python", "app/gradio_app.py"]
     restart: unless-stopped
