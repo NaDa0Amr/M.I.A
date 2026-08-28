@@ -8,6 +8,7 @@ sdk_version: 4.19.0
 app_file: app/gradio_app.py
 pinned: false
 ---
+
 # 🖼️ Neural Image Caption Generation
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -15,6 +16,7 @@ pinned: false
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
 
 ## Overview
+
 End-to-end image captioning system using deep learning, combining computer vision (ResNet-50) with NLP (LSTM) to generate natural language descriptions of images.
 
 ## Architecture
@@ -30,16 +32,19 @@ graph LR
 This model follows the "Show and Tell" architecture by utilizing a pre-trained CNN to extract image features and passing those features as the initial state or input to an LSTM which decodes them into a natural language sequence.
 
 ## Dataset
+
 We use the **Flickr8k** dataset:
+
 - **8,092** images in total
 - **5** captions per image
-- **Splits**: 
+- **Splits**:
   - Train: 6,000 images
   - Val: 1,000 images
   - Test: 1,000 images
 - **Preprocessing**: Lowercase conversion, punctuation removal, and frequency thresholding.
 
 ## Project Structure
+
 ```text
 .
 ├── app/
@@ -84,8 +89,9 @@ make setup
 5. Evaluate: `python scripts/evaluate.py`
 
 ## Training
+
 | Hyperparameter | Value |
-|----------------|-------|
+| -------------- | ----- |
 | Embed Dim      | 256   |
 | Hidden Dim     | 512   |
 | Batch Size     | 64    |
@@ -94,40 +100,46 @@ make setup
 Features include early stopping, LR scheduling, gradient clipping, and automated checkpointing.
 
 ## Evaluation
-| Metric | Expected Score |
-|--------|----------------|
-| BLEU-1 | ~60.0          |
-| BLEU-4 | ~20.0          |
-| ROUGE-L| ~45.0          |
-| METEOR | ~22.0          |
 
-*Qualitative examples showing generated captions will be displayed here.*
+| Metric  | Expected Score |
+| ------- | -------------- |
+| BLEU-1  | ~60.0          |
+| BLEU-4  | ~20.0          |
+| ROUGE-L | ~45.0          |
+| METEOR  | ~22.0          |
+
+_Qualitative examples showing generated captions will be displayed here._
 
 ## Web Interfaces
 
-You have two options for the web interface: **Streamlit** or **Gradio**.
+### Streamlit App
 
-### Option A: Streamlit App
 Start the Streamlit interface to upload and test your own images:
+
 ```bash
 streamlit run app/app.py
 # or
 make app
 ```
+
 Available at: `http://localhost:8501`
 
-### Option B: Gradio App
+### Gradio App
+
 Start the Gradio interface:
+
 ```bash
 python app/gradio_app.py
 # or
 make gradio
 ```
+
 Available at: `http://localhost:7860`
 
 ## Docker
 
 Run both the Streamlit UI and Gradio UI inside Docker containers:
+
 ```bash
 # Build the image
 docker build -t image-captioning .
@@ -140,16 +152,26 @@ docker-compose up
 #   Gradio UI     → http://localhost:7860
 ```
 
-## Model on HuggingFace
-🤗 Model available at: [HuggingFace Hub Link](https://huggingface.co/username/flickr8k-image-captioning)
+## Model & Deployments
+
+### 🤗 Hugging Face Spaces
+
+Try the model live on Hugging Face Spaces: [Image Captioning Demo](https://huggingface.co/spaces/Nada0salim/image-captioning)
+
+### 🐳 Docker Hub
+
+Container image available at: [Docker Hub Repository](https://hub.docker.com/repository/docker/nada123456aa/image-caption/general)
 
 ## Testing
+
 Run the test suite using pytest:
+
 ```bash
 pytest tests/ -v --cov=src
 ```
 
 ## Technologies
+
 - Python 3.10+
 - PyTorch & torchvision (ResNet-50)
 - Streamlit & Gradio (Web UIs)
@@ -158,4 +180,5 @@ pytest tests/ -v --cov=src
 - HuggingFace Hub
 
 ## License
+
 MIT
